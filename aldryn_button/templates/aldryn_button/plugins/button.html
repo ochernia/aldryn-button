@@ -1,0 +1,18 @@
+{% load cms_tags %}
+
+{% if instance.child_plugin_instances %}
+    <span class="plugin_link">
+{% endif %}
+    <a href="{{ instance.get_link }}"
+            {% if instance.target %} target="{{ instance.target }}"{% endif %}
+            {% if instance.css_id %} id="{{ instance.css_id }}"{% endif %}
+            class="btn{% if instance.css_classes %} {{ instance.css_classes }}{% endif %}">
+        {% for plugin in instance.child_plugin_instances %}
+            {% render_plugin plugin %}
+        {% empty %}
+            {{ instance.name }}
+        {% endfor %}
+    </a>
+{% if instance.child_plugin_instances %}
+    </span>
+{% endif %}
