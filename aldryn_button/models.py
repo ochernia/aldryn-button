@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import re
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -18,6 +20,8 @@ class ButtonPlugin(CMSPlugin):
                                                                                 )))
     mailto = models.EmailField(_('Mailto'), blank=True, null=True,
                                help_text=_('An email adress has priority over a page link.'))
+    phone = models.CharField(_('Phone'), blank=True, null=True, max_length=40,
+                             help_text=_('A phone number has priority over a mailto link.'))
 
     css_classes = models.CharField(_('css classes'), blank=True, null=True, max_length=255)
     css_id = models.CharField(_('css id'), blank=True, null=True, max_length=255)
@@ -26,6 +30,8 @@ class ButtonPlugin(CMSPlugin):
         return self.name
 
     def get_link(self):
+        if self.phone:
+            return 'tel:%s' % re.sub('[- ]', '', self.phone)
         if self.mailto:
             return 'mailto:%s' % self.mailto
         if self.page_link:
