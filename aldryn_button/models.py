@@ -16,6 +16,8 @@ class ButtonPlugin(CMSPlugin):
                                                                                  ('_parent', _('parent window')),
                                                                                  ('_top', _('topmost frame')),
                                                                                 )))
+    mailto = models.EmailField(_('Mailto'), blank=True, null=True,
+                               help_text=_('An email adress has priority over a page link.'))
 
     css_classes = models.CharField(_('css classes'), blank=True, null=True, max_length=255)
     css_id = models.CharField(_('css id'), blank=True, null=True, max_length=255)
@@ -24,6 +26,8 @@ class ButtonPlugin(CMSPlugin):
         return self.name
 
     def get_link(self):
+        if self.mailto:
+            return 'mailto:%s' % self.mailto
         if self.page_link:
             return self.page_link.get_absolute_url()
         if self.url:
