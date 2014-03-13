@@ -1,7 +1,7 @@
 {
 	"name": "Aldryn Button",
 	"description": "A short description of the app.",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"url": "https://github.com/aldryn/aldryn-button",
 	"package-name": "aldryn-button",
 	"installed-apps": [
