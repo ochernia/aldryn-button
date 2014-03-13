@@ -9,6 +9,8 @@ from cms.models.pluginmodel import CMSPlugin
 
 
 class ButtonPlugin(CMSPlugin):
+    translatable_content_excluded_fields = ['url', 'page_link', 'target', 'mailto', 'phone', 'css_classes', 'css_id']
+
     name = models.CharField(_('Name'), max_length=256)
     url = models.URLField(_('Link'), blank=True, null=True)
     page_link = PageField(verbose_name=_('Page'), blank=True, null=True,
