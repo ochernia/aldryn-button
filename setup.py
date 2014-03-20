@@ -3,8 +3,8 @@ from setuptools import setup, find_packages
 from aldryn_button import __version__
 
 REQUIREMENTS = [
-    'filer',
-    'easy_thumbnails',
+    'django-filer',
+    'easy-thumbnails',
 ]
 
 CLASSIFIERS = [
