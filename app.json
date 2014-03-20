@@ -5,6 +5,8 @@
 	"url": "https://github.com/aldryn/aldryn-button",
 	"package-name": "aldryn-button",
 	"installed-apps": [
+		"filer",
+		"easy_thumbnails",
 		"aldryn_button"
 	],
 	"author": {

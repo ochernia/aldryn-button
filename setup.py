@@ -2,7 +2,10 @@
 from setuptools import setup, find_packages
 from aldryn_button import __version__
 
-REQUIREMENTS = []
+REQUIREMENTS = [
+    'filer',
+    'easy_thumbnails',
+]
 
 CLASSIFIERS = [
     'Development Status :: 2 - Pre-Alpha',

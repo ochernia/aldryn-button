@@ -7,6 +7,8 @@ from django.utils.translation import ugettext_lazy as _
 from cms.models.fields import PageField
 from cms.models.pluginmodel import CMSPlugin
 
+from filer.fields.file import FilerFileField
+
 
 class ButtonPlugin(CMSPlugin):
     translatable_content_excluded_fields = ['url', 'page_link', 'target', 'mailto', 'phone', 'css_classes', 'css_id']
@@ -24,6 +26,8 @@ class ButtonPlugin(CMSPlugin):
                                help_text=_('An email adress has priority over a page link.'))
     phone = models.CharField(_('Phone'), blank=True, null=True, max_length=40,
                              help_text=_('A phone number has priority over a mailto link.'))
+    file = FilerFileField(verbose_name=_('File'), null=True, blank=True,
+                          help_text=_('A file has priority over a phone number.'))
 
     css_classes = models.CharField(_('css classes'), blank=True, null=True, max_length=255)
     css_id = models.CharField(_('css id'), blank=True, null=True, max_length=255)
@@ -32,6 +36,8 @@ class ButtonPlugin(CMSPlugin):
         return self.name
 
     def get_link(self):
+        if self.file:
+            return self.file.url
         if self.phone:
             return 'tel:%s' % re.sub('[- ]', '', self.phone)
         if self.mailto:
@@ -40,4 +46,4 @@ class ButtonPlugin(CMSPlugin):
             return self.page_link.get_absolute_url()
         if self.url:
             return self.url
-        return False
+        return '#'
