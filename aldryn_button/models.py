@@ -12,16 +12,12 @@ from filer.fields.file import FilerFileField
 
 class ButtonPlugin(CMSPlugin):
     translatable_content_excluded_fields = ['url', 'page_link', 'target', 'mailto', 'phone', 'css_classes', 'css_id']
-
     name = models.CharField(_('Name'), max_length=256)
+
+    # Link types
     url = models.URLField(_('Link'), blank=True, null=True)
     page_link = PageField(verbose_name=_('Page'), blank=True, null=True,
                           help_text=_('A link to a page has priority over a text link.'))
-    target = models.CharField(_('target'), blank=True, max_length=100, choices=((('', _('same window')),
-                                                                                 ('_blank', _('new window')),
-                                                                                 ('_parent', _('parent window')),
-                                                                                 ('_top', _('topmost frame')),
-                                                                                )))
     mailto = models.EmailField(_('Mailto'), blank=True, null=True,
                                help_text=_('An email adress has priority over a page link.'))
     phone = models.CharField(_('Phone'), blank=True, null=True, max_length=40,
@@ -29,6 +25,12 @@ class ButtonPlugin(CMSPlugin):
     file = FilerFileField(verbose_name=_('File'), null=True, blank=True,
                           help_text=_('A file has priority over a phone number.'))
 
+    # Additional stuff
+    target = models.CharField(_('target'), blank=True, max_length=100, choices=((('', _('same window')),
+                                                                                 ('_blank', _('new window')),
+                                                                                 ('_parent', _('parent window')),
+                                                                                 ('_top', _('topmost frame')),
+                                                                                )))
     css_classes = models.CharField(_('css classes'), blank=True, null=True, max_length=255)
     css_id = models.CharField(_('css id'), blank=True, null=True, max_length=255)
 
