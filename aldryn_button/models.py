@@ -16,8 +16,10 @@ class ButtonPlugin(CMSPlugin):
 
     # Link types
     url = models.URLField(_('Link'), blank=True, null=True)
+    anchor = models.CharField(_('Anchor'), blank=True, null=True, max_length=100,
+                              help_text=_('An anchor has priority over a text link.'))
     page_link = PageField(verbose_name=_('Page'), blank=True, null=True,
-                          help_text=_('A link to a page has priority over a text link.'))
+                          help_text=_('A link to a page has priority over an anchor.'))
     mailto = models.EmailField(_('Mailto'), blank=True, null=True,
                                help_text=_('An email adress has priority over a page link.'))
     phone = models.CharField(_('Phone'), blank=True, null=True, max_length=40,
@@ -46,6 +48,8 @@ class ButtonPlugin(CMSPlugin):
             return 'mailto:%s' % self.mailto
         if self.page_link:
             return self.page_link.get_absolute_url()
+        if self.anchor:
+            return self.anchor if self.anchor.startswith('#') else "#%s" % self.anchor
         if self.url:
             return self.url
         return '#'
