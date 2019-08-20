@@ -24,7 +24,7 @@ class ButtonPlugin(CMSPlugin):
                                help_text=_('An email adress has priority over a page link.'))
     phone = models.CharField(_('Phone'), blank=True, null=True, max_length=40,
                              help_text=_('A phone number has priority over a mailto link.'))
-    file = FilerFileField(verbose_name=_('File'), null=True, blank=True,
+    file = FilerFileField(verbose_name=_('File'), null=True, blank=True, on_delete=models.CASCADE,
                           help_text=_('A file has priority over a phone number.'))
 
     # Additional stuff
